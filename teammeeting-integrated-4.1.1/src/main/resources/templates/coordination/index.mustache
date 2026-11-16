@@ -1,0 +1,148 @@
+{{>partials/header}}
+{{#coordination}}
+<div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-4">
+  <div>
+    <p class="text-secondary small mb-1">장소와 투표</p>
+    <h1 class="h3 mb-0">{{meetingName}}</h1>
+  </div>
+  <a class="btn btn-outline-secondary btn-sm" href="/meetings/{{meetingId}}">← 가능 시간으로</a>
+</div>
+
+{{#formErrors}}
+<div class="alert alert-danger" role="alert">{{.}}</div>
+{{/formErrors}}
+
+{{#confirmed}}
+<div class="alert alert-success d-flex flex-wrap justify-content-between align-items-center gap-2" role="alert">
+  <span>이미 확정된 모임입니다. 후보 등록과 투표는 닫혔습니다.</span>
+  <a class="btn btn-success btn-sm" href="/meetings/{{meetingId}}/result">확정 결과 보기</a>
+</div>
+{{/confirmed}}
+
+<div class="meeting-tabs"><a href="/meetings/{{meetingId}}">01 가능 시간</a><a class="active" href="/meetings/{{meetingId}}/coordination">02 시간·장소 조율</a>{{#confirmed}}<a href="/meetings/{{meetingId}}/result">03 확정 결과</a>{{/confirmed}}</div>
+<div class="row g-4">
+  <!-- 왼쪽: 장소 후보와 투표 -->
+  <div class="col-lg-7">
+    <section class="card shadow-sm">
+      <div class="card-header bg-white d-flex justify-content-between align-items-center">
+        <h2 class="h6 mb-0">장소 후보</h2>
+        <span class="badge text-bg-secondary">{{placeCount}}개</span>
+      </div>
+      {{^places}}
+      <div class="card-body text-secondary">
+        아직 등록된 장소 후보가 없습니다.{{^confirmed}} 아래에서 첫 후보를 등록해 보세요.{{/confirmed}}
+      </div>
+      {{/places}}
+      <ul class="list-group list-group-flush">
+      {{#places}}
+        <li class="list-group-item d-flex justify-content-between align-items-center gap-3 py-3">
+          <div class="me-auto">
+            <div class="fw-semibold">
+              {{name}}
+              {{#top}}<span class="badge text-bg-warning ms-1">최다 득표</span>{{/top}}
+              {{#mine}}<span class="badge text-bg-primary ms-1">내 선택</span>{{/mine}}
+            </div>
+            {{#hasMemo}}<div class="text-secondary small">{{memo}}</div>{{/hasMemo}}
+            <div class="text-secondary small">등록: {{createdByName}}</div>
+          </div>
+          <div class="text-end">
+            <div class="fs-5 fw-bold lh-1">{{voteCount}}<span class="fs-6 fw-normal text-secondary ms-1">표</span></div>
+            {{^confirmed}}
+            <form method="post" action="/meetings/{{meetingId}}/votes" class="mt-2">
+              {{>partials/csrf}}
+              <input type="hidden" name="placeId" value="{{id}}">
+              {{#mine}}<button class="btn btn-sm btn-primary" disabled>투표함</button>{{/mine}}
+              {{^mine}}<button class="btn btn-sm btn-outline-primary">{{#hasMyVote}}이 장소로 변경{{/hasMyVote}}{{^hasMyVote}}투표하기{{/hasMyVote}}</button>{{/mine}}
+            </form>
+            {{/confirmed}}
+          </div>
+        </li>
+      {{/places}}
+      </ul>
+    </section>
+
+    {{^confirmed}}
+    <section class="card shadow-sm mt-4">
+      <div class="card-body">
+        <h2 class="h6 mb-3">장소 후보 추가</h2>
+        <form method="post" action="/meetings/{{meetingId}}/places">
+          {{>partials/csrf}}
+          <div class="mb-3">
+            <label for="place-name" class="form-label">장소 이름</label>
+            <input id="place-name" name="name" type="text" class="form-control" maxlength="80" required
+                   value="{{formName}}" placeholder="예: 학교 도서관 스터디룸 3">
+          </div>
+          <div class="mb-3">
+            <label for="place-memo" class="form-label">메모 <span class="text-secondary">(선택)</span></label>
+            <input id="place-memo" name="memo" type="text" class="form-control" maxlength="300"
+                   value="{{formMemo}}" placeholder="예: 6인실, 콘센트 있음">
+          </div>
+          <button class="btn btn-dark">후보 등록</button>
+        </form>
+      </div>
+    </section>
+    {{/confirmed}}
+  </div>
+
+  <!-- 오른쪽: 공통 시간과 확정 -->
+  <div class="col-lg-5">
+    <section class="card shadow-sm">
+      <div class="card-header bg-white d-flex justify-content-between align-items-center">
+        <h2 class="h6 mb-0">전원 가능한 시간</h2>
+        <span class="badge text-bg-secondary">응답 {{respondedCount}}/{{memberCount}}명</span>
+      </div>
+      <div class="card-body">
+        {{#pendingResponses}}
+        <div class="alert alert-warning small mb-0" role="alert">
+          아직 응답하지 않은 참여자가 있습니다: {{pendingNames}}
+        </div>
+        {{/pendingResponses}}
+        {{#noCommonTime}}
+        <div class="alert alert-secondary small mb-0" role="alert">
+          전원이 가능한 시간이 없습니다. 참여자에게 가능 시간 수정을 요청하세요.
+        </div>
+        {{/noCommonTime}}
+        {{#days}}
+        <div class="mb-3">
+          <div class="fw-semibold small mb-1">{{dateLabel}}</div>
+          {{#times}}<span class="badge text-bg-light border fw-normal me-1">{{.}}</span>{{/times}}
+        </div>
+        {{/days}}
+      </div>
+    </section>
+
+    {{^confirmed}}
+    <section class="card shadow-sm mt-4">
+      <div class="card-body">
+        <h2 class="h6 mb-3">모임 확정</h2>
+        {{#creator}}
+        {{#canConfirm}}
+        <form method="post" action="/meetings/{{meetingId}}/confirm"
+              onsubmit="return confirm('이 시간과 장소로 확정할까요? 확정 후에는 변경할 수 없습니다.');">
+          {{>partials/csrf}}
+          <div class="mb-3">
+            <label for="confirm-slot" class="form-label">시간</label>
+            <select id="confirm-slot" name="slot" class="form-select" required>
+              {{#slots}}<option value="{{value}}">{{label}}</option>{{/slots}}
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="confirm-place" class="form-label">장소 <span class="text-secondary small">(최다 득표)</span></label>
+            <select id="confirm-place" name="placeId" class="form-select" required>
+              {{#confirmPlaces}}<option value="{{id}}">{{name}} · {{voteCount}}표</option>{{/confirmPlaces}}
+            </select>
+            {{#tie}}<div class="form-text">동률이라 그중에서 선택할 수 있습니다.</div>{{/tie}}
+          </div>
+          <button class="btn btn-success w-100">이 시간과 장소로 확정</button>
+        </form>
+        {{/canConfirm}}
+        {{#hasConfirmBlockedReason}}<p class="text-secondary small mb-0">{{confirmBlockedReason}}</p>{{/hasConfirmBlockedReason}}
+        {{/creator}}
+        {{^creator}}<p class="text-secondary small mb-0">모임 확정은 팀장만 할 수 있습니다.</p>{{/creator}}
+      </div>
+    </section>
+    {{/confirmed}}
+  </div>
+</div>
+{{/coordination}}
+{{>partials/footer}}

@@ -1,0 +1,138 @@
+{
+  "date": "2026-11-13",
+  "initialH2": {
+    "tests": 42,
+    "failures": 0,
+    "errors": 0
+  },
+  "initialMySQL": {
+    "version": "8.0.45",
+    "tests": 42,
+    "failures": 0,
+    "errors": 0,
+    "suites": [
+      {
+        "name": "com.example.teammeeting.AIntegrationTest",
+        "tests": "8",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.example.teammeeting.AMergeReadinessTest",
+        "tests": "6",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.example.teammeeting.CommonSkeletonTest",
+        "tests": "7",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.example.teammeeting.coordination.CoordinationServiceTest",
+        "tests": "9",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.example.teammeeting.FullFlowIntegrationTest",
+        "tests": "12",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      }
+    ]
+  },
+  "finalMySQL": {
+    "version": "8.0.45",
+    "suites": [
+      {
+        "name": "com.example.teammeeting.AIntegrationTest",
+        "tests": "8",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.example.teammeeting.AMergeReadinessTest",
+        "tests": "6",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.example.teammeeting.CommonSkeletonTest",
+        "tests": "7",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.example.teammeeting.coordination.CoordinationServiceTest",
+        "tests": "9",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.example.teammeeting.FullFlowIntegrationTest",
+        "tests": "12",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      }
+    ],
+    "total": 42,
+    "failures": 0,
+    "errors": 0,
+    "cleanupLogErrorMarkers": 0
+  },
+  "finalH2": {
+    "suites": [
+      {
+        "name": "com.example.teammeeting.AIntegrationTest",
+        "tests": "8",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.example.teammeeting.AMergeReadinessTest",
+        "tests": "6",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.example.teammeeting.CommonSkeletonTest",
+        "tests": "7",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.example.teammeeting.coordination.CoordinationServiceTest",
+        "tests": "9",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "com.example.teammeeting.FullFlowIntegrationTest",
+        "tests": "12",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      }
+    ],
+    "total": 42,
+    "failures": 0,
+    "errors": 0,
+    "cleanupLogErrorMarkers": 0
+  }
+}

@@ -1,0 +1,43 @@
+{{>partials/header}}
+{{#result}}
+<a class="back-link" href="/meetings/{{meetingId}}">← 모임 상세</a>
+<div class="row justify-content-center">
+  <div class="col-lg-7">
+    {{#confirmed}}
+    <section class="card shadow-sm">
+      <div class="card-body p-4">
+        <span class="badge text-bg-success mb-2">확정됨</span>
+        <h1 class="h3 mb-4">{{meetingName}}</h1>
+        <dl class="row mb-0">
+          <dt class="col-sm-3">날짜</dt>
+          <dd class="col-sm-9">{{dateLabel}}</dd>
+          <dt class="col-sm-3">시간</dt>
+          <dd class="col-sm-9">{{timeLabel}}</dd>
+          <dt class="col-sm-3">장소</dt>
+          <dd class="col-sm-9 mb-0">
+            {{placeName}}
+            {{#hasPlaceMemo}}<div class="text-secondary small">{{placeMemo}}</div>{{/hasPlaceMemo}}
+          </dd>
+        </dl>
+      </div>
+      <div class="card-footer bg-white text-secondary small">
+        이 결과는 팀의 약속이며, 실제 시설의 이용 가능 여부나 예약 완료를 뜻하지 않습니다.
+      </div>
+    </section>
+    {{/confirmed}}
+    {{^confirmed}}
+    <section class="card shadow-sm">
+      <div class="card-body p-4">
+        <h1 class="h4">{{meetingName}}</h1>
+        <p class="text-secondary">아직 확정되지 않은 모임입니다.</p>
+        <a class="btn btn-dark" href="/meetings/{{meetingId}}/coordination">장소와 투표로 이동</a>
+      </div>
+    </section>
+    {{/confirmed}}
+    <p class="mt-3 mb-0">
+      <a class="text-secondary" href="/meetings/{{meetingId}}/coordination">← 장소와 투표로 돌아가기</a>
+    </p>
+  </div>
+</div>
+{{/result}}
+{{>partials/footer}}

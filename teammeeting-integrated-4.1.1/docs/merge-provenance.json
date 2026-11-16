@@ -1,0 +1,22 @@
+{
+  "receivedArchive": "teammeeting-main.zip",
+  "receivedArchiveSha256": "4ca801c3d95d5d75f3d08187caa7978ffeb33092ddee23f05e477e7f2ef82be6",
+  "aSource": "teammeeting-a-4.1.1",
+  "bSource": "tmp/b-received-20261113/teammeeting-main",
+  "copiedBFiles": [
+    "src\\main\\java\\com\\example\\teammeeting\\coordination\\CoordinationController.java",
+    "src\\main\\java\\com\\example\\teammeeting\\coordination\\CoordinationService.java",
+    "src\\main\\java\\com\\example\\teammeeting\\coordination\\CoordinationView.java",
+    "src\\main\\java\\com\\example\\teammeeting\\coordination\\PlaceCreateForm.java",
+    "src\\main\\java\\com\\example\\teammeeting\\coordination\\PlaceRepository.java",
+    "src\\main\\java\\com\\example\\teammeeting\\coordination\\ResultView.java",
+    "src\\main\\java\\com\\example\\teammeeting\\coordination\\VoteRepository.java",
+    "src\\main\\resources\\templates\\coordination\\index.mustache",
+    "src\\main\\resources\\templates\\coordination\\result.mustache",
+    "src\\test\\java\\com\\example\\teammeeting\\coordination\\CoordinationServiceTest.java"
+  ],
+  "keptSharedFiles": "A 4.1.1 baseline; B-only existsByMeetingIdAndUserId method not needed by B implementation",
+  "additionalBChanges": "coordination templates: navigation links only",
+  "status": "Integrated required scope authorized by user on 2026-11-13; presentation and personal-PC rehearsal remain",
+  "bTestChange": "AutoConfigureMockMvc annotation only; rule test bodies unchanged"
+}
